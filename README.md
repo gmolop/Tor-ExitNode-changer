@@ -34,7 +34,7 @@ Install
 4. Set your start page at https://www.dnsleaktest.com/
 5. Enjoy
 
-*3 & 4 are optional but recommended*  
+*3 & 4 are optional but recommended*
 
 Usage
 ---
