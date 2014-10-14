@@ -1,7 +1,7 @@
 Tor Browser {Exit Nodes} Changer
 ===
 
-Simple bash script to change Tor's {Exit Nodes} Country Codes from terminal
+Bash script to change Tor's {Exit Nodes} Country Codes from terminal
 ---
 
     Name          : Tor Browser {Exit Nodes} Changer
