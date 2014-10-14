@@ -49,39 +49,39 @@ Just type `tor` in your terminal, followed by [2 letter ISO3166 country code](ht
 Arguments
 ---
 
-- ####Get your system language (if you want to contribute with `locale::message case $lang`) use:
+- Get your system language (if you want to contribute with `locale::message case $lang`) use:
 
         $ tor --lang
 
-- ####To show a list of all country codes available in the script, use:
+- To show a list of all country codes available in the script, use:
 
         $ tor --list
 
-- ####UnComment the {Exit Node} line for `custom` node:
+- UnComment the {Exit Node} line for `custom` node:
 
         $ tor --set enabled
 
-- ####Comment the {Exit Node} line for `normal/default/random` nodes:
+- Comment the {Exit Node} line for `normal/default/random` nodes:
 
         $ tor --set disabled
 
-- ####Manually edit `torrc` file:
+- Manually edit `torrc` file:
 
         $ tor --edit
 
-- ####Remove exitNode config from `torrc` file:
+- Remove exitNode config from `torrc` file:
 
         $ tor --clean
 
 How To
 ---
 
-- ####(2) Make script executable
+- <sup>(2)</sup> Make script executable
 
         $ cd /path/to/folder/
         $ chmod u+x tor_exitNode_changer.sh
 
-- ####(3) Create alias for easy access
+- <sup>(3)</sup> Create alias for easy access
 
         $ cd ~/
         $ vim .bash_profile
@@ -91,7 +91,7 @@ How To
             wq
         $ source .bash_profile
 
-- ####(4) Set your start page at https://www.dnsleaktest.com/ (or similar)
+- <sup>(4)</sup> Set your start page at https://www.dnsleaktest.com/ (or similar)
 
         Command+,
         General tab
