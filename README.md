@@ -79,14 +79,14 @@ How To
 - ####(2) Make script executable
 
         $ cd /path/to/folder/
-        $ chmod u+x tor_exitNode_changer
+        $ chmod u+x tor_exitNode_changer.sh
 
 - ####(3) Create alias for easy access
 
         $ cd ~/
         $ vim .bash_profile
             i
-            alias tor='/path/to/folder/tor_exitNode_changer'
+            alias tor='/path/to/folder/tor_exitNode_changer.sh'
             esc
             wq
         $ source .bash_profile
