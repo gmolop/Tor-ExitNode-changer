@@ -19,7 +19,7 @@
     scriptName=$(basename "$0")
     appName="TorBrowser"
     appPath="/Applications/TorBrowser.app"
-    configFile="$appPath/Data/Tor/torrc"
+    configFile="$appPath/TorBrowser/Data/Tor/torrc"
     configParam="ExitNodes"
     NL='
     '

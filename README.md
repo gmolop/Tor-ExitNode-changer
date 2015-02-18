@@ -112,5 +112,8 @@ Disclaimer
 Changelog
 ---
 
+    v1.1 // 18-feb-15
+        update config file path
+
     v1.0 // 14-oct-14
         first release
