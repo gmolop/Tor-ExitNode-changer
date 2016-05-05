@@ -3,8 +3,8 @@
 :: ====================================================================================
 :: Name          : Tor Browser {Exit Nodes} Changer
 :: Description   : Batch script to change Tor's {Exit Nodes} Country Codes
-:: Version       : 1.0
-:: Enviroment    : Windows CMD Shell Command Line
+:: Version       : 1.2
+:: Enviroment    : Windows CMD Shell
 :: Author        : gmo
 :: Proyect       : https://github.com/gmolop/Tor-ExitNode-changer
 :: Tested on     : Windows 10 pro / cmd.exe 10.0.10586.0 / Tor Browser 5.5.5 (based on Mozilla Firefox 38.8.0)

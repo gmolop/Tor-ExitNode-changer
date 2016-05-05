@@ -1,9 +1,9 @@
 #!/bin/bash
 #
 # ====================================================================================
-# Name          : Tor Browser {Exit Nodes} Changer
-# Description   : Bash script to change Tor's {Exit Nodes} Country Codes
-# Version       : 1.0
+# Name          : Tor Browser {ExitNodes} Changer
+# Description   : Bash script to change Tor's {ExitNodes} Country Codes
+# Version       : 1.2
 # Enviroment    : OS X / Unix
 # Author        : gmo
 # Proyect       : https://github.com/gmolop/Tor-ExitNode-changer
