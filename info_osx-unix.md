@@ -94,14 +94,14 @@ How To
 
 - #####<sup>(2)</sup> Make script executable
 
-````shell
+    ````shell
         $ cd /path/to/folder/
         $ chmod u+x tor_exitNode_changer.sh
-```
+    ```
 
 - #####<sup>(3)</sup> Create alias for easy access
 
-````shell
+    ````shell
         $ cd ~/
         $ vim .bash_profile
             i
@@ -109,7 +109,7 @@ How To
             esc
             wq
         $ source .bash_profile
-````
+    ````
 
 - #####<sup>(4)</sup> Set your start page at https://www.dnsleaktest.com/ <sup>(or similar)</sup>
 
