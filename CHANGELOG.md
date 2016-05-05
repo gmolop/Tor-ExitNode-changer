@@ -20,4 +20,3 @@ For a much more detailed list, simply refer to [commit messages](https://github.
 1.0 - 2014/oct/14
 ---
 - initial release
-/Users/gmo/_github/Tor-ExitNode-changer/CHANGELOG.md
