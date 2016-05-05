@@ -29,7 +29,7 @@ Install
 ---
 
 1. Download script from source
-2. Make script executable <sup>[how to](https://github.com/gmolop/Tor-ExitNode-changer#2-make-script-executable)</sup>
+2. Make script executable <sup>[how to](#2-make-script-executable)</sup>
 3. Create an Alias <sup>[how to](https://github.com/gmolop/Tor-ExitNode-changer#3-create-alias-for-easy-access)</sup>
 4. Set your start page at https://www.dnsleaktest.com/  <sup>[how to](https://github.com/gmolop/Tor-ExitNode-changer#4-set-your-start-page-at-httpswwwdnsleaktestcom-or-similar)</sup>
 5. Enjoy
