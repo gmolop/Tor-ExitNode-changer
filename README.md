@@ -6,7 +6,7 @@ Change Tor's {ExitNodes} Country Codes easily!
 
     Name         : Tor Browser {ExitNodes} Changer
     Description  : Bash script to change Tor's {ExitNodes} Country Codes
-    Version      : 1.2
+    Version      : 1.3
     Enviroment   : OS X / Unix / Windows
     Author       : gmo
     Proyect      : https://github.com/gmolop/Tor-ExitNode-changer
@@ -32,6 +32,7 @@ Info : [info_windows.md](https://github.com/gmolop/Tor-ExitNode-changer/blob/mas
 Know issues
 ---
 
+> If `torrc` file is empty, you will need to manually write `ExitNodes {IT}` (IT is an example), (can be done with `tor --edit`).  
 > With some countries, Tor Browser stuck in `Connecting window...` but I don't know if it's because that language is deprecated in Node list or is just that Tor can't find a proper proxy in that specific moment.  
 > In this case, relaunch and/or wait
 

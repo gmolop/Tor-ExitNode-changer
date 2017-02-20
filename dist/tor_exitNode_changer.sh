@@ -1,13 +1,13 @@
 #!/bin/bash
 #
 # ====================================================================================
-# Name          : Tor Browser {ExitNodes} Changer
-# Description   : Bash script to change Tor's {ExitNodes} Country Codes
-# Version       : 1.2
+# Name          : Tor Browser {Exit Nodes} Changer
+# Description   : Bash script to change Tor's {Exit Nodes} Country Codes
+# Version       : 1.3
 # Enviroment    : OS X / Unix
 # Author        : gmo
 # Proyect       : https://github.com/gmolop/Tor-ExitNode-changer
-# Tested on     : OS X 10.9.5 / bash 3.2.51(1) / Tor Browser Bundle 3.6.5
+# Tested on     : OS X 10.12.3 / bash 3.2.57(1) / Tor Browser 6.5
 
 
 
@@ -15,11 +15,13 @@
 # Config vars
 
     lang=$(defaults read .GlobalPreferences AppleLanguages | tr -d [:space:] | cut -c2-3)
-    DIR=$(cd $(dirname "$0"); pwd)
+    DIR=$(cd "$(dirname "$0")"; pwd)
     scriptName=$(basename "$0")
     appName="TorBrowser"
     appPath="/Applications/TorBrowser.app"
-    configFile="$appPath/TorBrowser/Data/Tor/torrc"
+    # configFile="$appPath/TorBrowser/Data/Tor/torrc"
+    # configFile="$appPath/Contents/Resources/TorBrowser/Tor/torrc"
+    configFile="$HOME/Library/Application Support/TorBrowser-Data/Tor/torrc"
     configParam="ExitNodes"
     NL='
     '
@@ -52,6 +54,7 @@
             msg_warning_050="La configuración esta desactivada."
             msg_warning_060="2 letras para el codigo país en ISO3166: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
             msg_warning_070="Para el listado completo, utiliza: tor --list"
+            msg_warning_080="Numero de intentos excedido."
             ;;
         *)
             msg_country_010="Enter a country code: "
@@ -65,7 +68,7 @@
             msg_actions_050="Starting Tor with the new configuration..."
             msg_actions_060="Done!"
             msg_actions_070="exitNode settings removed!"
-            msg_actions_080="exitNode settings can be removed!\nFor manually remove, use: tor --edit"
+            msg_actions_080="exitNode settings cant be removed!\nFor manually remove, use: tor --edit"
 
             msg_warning_010="Setup found, we can continue..."
             msg_warning_020="Condition not found in the configuration file."
@@ -74,6 +77,7 @@
             msg_warning_050="The configuration is disabled."
             msg_warning_060="2 letter ISO3166 country code: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
             msg_warning_070="For full list, use: tor --list"
+            msg_warning_080="Number of attempts exceeded."
             ;;
     esac
 
@@ -311,8 +315,7 @@
         "ug:UGANDA"
         "ua:UKRAINE"
         "ae:UNITED ARAB EMIRATES"
-        "gb:UNITED KINGDOM (no new registrations"
-        "uk:UNITED KINGDOM"
+        "gb:UNITED KINGDOM"
         "us:UNITED STATES"
         "um:UNITED STATES MINOR OUTL.IS"
         "uy:URUGUAY"
@@ -371,6 +374,13 @@
 
     f_add_exitNode_parameter () {
 
+        count=$1
+        if [ "$count" -ge "3" ]; then
+            echo -e " ** $msg_warning_080"
+            echo -e " ** $msg_actions_060"
+            exit
+        fi
+
         if f_check_exitNode_string; then
 
             echo -e " ** $msg_warning_010"
@@ -379,9 +389,10 @@
         else
 
             echo -e " ** $msg_warning_020"
-            sed -i -e "1,1 s/^/$configParam {$ISO_uppercase}\\$NL/" $configFile
+            sed -i -e "1,1 s/^/$configParam {$ISO_uppercase}\\$NL/" "$configFile"
             echo -e " ** $msg_warning_030"
-            f_add_exitNode_parameter
+            count=$(($1+1))
+            f_add_exitNode_parameter $count
 
         fi
 
@@ -405,7 +416,7 @@
         fi
 
         echo " >> $msg_actions_040: $NODECountry"
-        sed -i -e "s/$configParam {.*.}/$configParam {$ISO_uppercase}/" $configFile
+        sed -i -e "s/$configParam {.*.}/$configParam {$ISO_uppercase}/" "$configFile"
         echo -e " >> $msg_actions_050"
         open $appPath
         echo -e " >> $msg_actions_060"
@@ -459,13 +470,13 @@
 
             if [ "$newStatus" = "enabled" ]; then
 
-                sed -i -e "s/.*.$configParam {/$configParam {/" $configFile
+                sed -i -e "s/.*.$configParam {/$configParam {/" "$configFile"
                 echo -e " ** $msg_warning_040"
 
             elif [ "$newStatus" = 'disabled' ]; then
 
-                sed -i -e "s/.*.$configParam {/$configParam {/" $configFile
-                sed -i -e "s/$configParam {/# $configParam {/" $configFile
+                sed -i -e "s/.*.$configParam {/$configParam {/" "$configFile"
+                sed -i -e "s/$configParam {/# $configParam {/" "$configFile"
                 echo -e " ** $msg_warning_050"
 
                 exit
@@ -484,7 +495,7 @@
 
         if f_check_exitNode_string; then
 
-            sed -i -e "/\(\.\*\)\{0,1\}$configParam/d" $configFile
+            sed -i -e "/\(\.\*\)\{0,1\}$configParam/d" "$configFile"
 
             if f_check_exitNode_string; then
 
@@ -530,7 +541,7 @@
 
     elif [ "$1" = "--edit" ]; then
 
-        vim $configFile
+        vim "$configFile"
         exit
 
     elif [ "$1" = "--clean" ]; then
@@ -559,7 +570,7 @@
     ISO_lowercase=$(echo $NODE | tr 'A-Z' 'a-z')
     NODECountry=$(f_check_if_in_array $ISO_lowercase)
 
-    if [ $NODECountry = "notFound" ]; then
+    if [[ $NODECountry = "notFound" ]]; then
 
         echo -e " !! $msg_country_030\n ** $msg_warning_070"
         exit
@@ -569,4 +580,4 @@
 # ====================================================================================
 # If we get here, looks good, go on!
 
-    f_add_exitNode_parameter
+    f_add_exitNode_parameter 1

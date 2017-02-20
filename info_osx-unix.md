@@ -6,11 +6,11 @@ Bash script to change Tor's {ExitNodes} Country Codes from terminal
 
     Name         : Tor Browser {ExitNodes} Changer
     Description  : Bash script to change Tor's {ExitNodes} Country Codes from terminal
-    Version      : 1.2
+    Version      : 1.3
     Enviroment   : OS X / Unix
     Author       : gmo
     Proyect      : https://github.com/gmolop/Tor-ExitNode-changer
-    Tested on    : OS X 10.9.5 / bash 3.2.51(1) / Tor Browser Bundle 3.6.5
+    Tested on    : OS X 10.12.3 / bash 3.2.57(1) / Tor Browser 6.5
     Country list : https://b3rn3d.herokuapp.com/blog/2014/03/05/tor-country-codes
 
 Description
