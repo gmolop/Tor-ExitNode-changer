@@ -3,12 +3,17 @@
 :: ====================================================================================
 :: Name          : Tor Browser {Exit Nodes} Changer
 :: Description   : Batch script to change Tor's {Exit Nodes} Country Codes
-:: Version       : 1.2
+:: Version       : 1.3
 :: Enviroment    : Windows CMD Shell
 :: Author        : gmo
 :: Proyect       : https://github.com/gmolop/Tor-ExitNode-changer
-:: Tested on     : Windows 10 pro / cmd.exe 10.0.10586.0 / Tor Browser 5.5.5 (based on Mozilla Firefox 38.8.0)
+:: Tested on     : Windows 10 pro / cmd.exe 10.0.17134.165 / Tor Browser 7.5.6 (based on Mozilla Firefox 52.9.0)
 :: ====================================================================================
+
+:: ProTip: Pin shorcut to the taskbar
+::  - Rename .bat file to .exe and drag to task bar.
+::  - Rename target back to .bat on pinned shorcut.
+::  - Rename the original file back to .bat
 
 title=[gmo]( ExitNode Changer )
 
@@ -17,12 +22,12 @@ echo  _____________________________________
 echo  Starting TOR with ExitNode Changer...
 echo.
 
-call :SetConfig
-call :clean_temp_files
+call :setConfig
+call :cleanTempFiles
 
 :: ====================================================================================
 :: Set config vars and start
-:SetConfig
+:setConfig
     echo  Setting up environment variables.....
 
     :: get current script path
@@ -69,9 +74,9 @@ EXIT /b
 
 :: ====================================================================================
 :start_
-    call :CreateNewExe
-    call :FindCurrent
-    call :CreateSupport
+    call :createNewExe
+    call :findCurrent
+    call :createSupport
     call :doTheJob %torrc_name%
 EXIT /b
 
@@ -80,7 +85,7 @@ EXIT /b
 
     echo  Requesting new ExitNode value........
     for /f %%a in ('cscript //nologo _pen.vbs') do set "ISOcodeUser=%%a"
-    if "%ISOcodeUser%" == "" call :clean_temp_files
+    if "%ISOcodeUser%" == "" call :cleanTempFiles
 
     :: check, trim and upprcase
     call :trimSpaces ISOcode %ISOcodeUser%
@@ -115,17 +120,34 @@ EXIT /b
 EXIT /b
 
 :: ====================================================================================
-:CreateNewExe
+:createNewExe
     echo  Creating a new instance of TOR.......
     :: create the new instance of TOR
     if not exist "%tor_path%%tor_new_name%" (
         copy "%tor_path%%tor_current_name%" "%tor_path%%tor_new_name%"
+        echo  New instance of TOR created..........
+    ) else (
+        echo  Cloned instance of TOR exists........
+        fc "%tor_path%%tor_current_name%" "%tor_path%%tor_new_name%" > nul
+        if errorlevel 2 (
+            echo  Wrong syntax, ABORTING...............
+            echo  .....................................
+            call :cleanTempFiles
+        )
+        if errorlevel 1 (
+            echo  File check fails, removing old file..
+            del "%tor_path%%tor_new_name%"
+            call :createNewExe
+        )
+        if errorlevel 0 (
+            echo  File check pass......................
+        )
     )
     echo                                  done/
 EXIT /b
 
 :: ====================================================================================
-:CreateSupport
+:createSupport
     echo  Creating support files...............
     if %currentExitNode% EQU 1 (
         set currVal=""
@@ -151,7 +173,7 @@ EXIT /b
 EXIT /b
 
 :: ====================================================================================
-:FindCurrent
+:findCurrent
     echo  Searching current ExitNode value.....
     set currentExitNode=1
 
@@ -195,7 +217,7 @@ EXIT /b
 EXIT /b
 
 :: ====================================================================================
-:clean_temp_files
+:cleanTempFiles
     echo  Deleting support files...............
 
     if exist "%temp_torrc%" ( del %temp_torrc% )
